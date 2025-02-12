@@ -14,11 +14,20 @@
     from scipy.signal import correlate
     from scipy.fft import fft, fftfreq
     from scipy.signal import welch
+    
+Se importan librerías esenciales para el procesamiento de señales:
+
+numpy: Para manipulación de arreglos numéricos.
+matplotlib.pyplot: Para generar gráficos.
+scipy.stats: Para estadísticas y distribuciones.
+scipy.signal: Para correlación y análisis de señales.
+scipy.fft: Para la Transformada de Fourier.
+welch: Para calcular la Densidad Espectral de Potencia.
 
 # Definir las señales h[n] y x[n]
 
-h[n] = Código
-x[n] = Cédula
+Se definen las señales h[n] y x[n] para cada integrante del grupo.
+h[n] representa el código del estudiante y x[n] su número de cédula.
 
     hs = np.array([5, 6, 0, 0, 8, 0, 8])
     xs = np.array([1, 0, 5, 7, 9, 7, 9, 0, 9, 1])
@@ -33,15 +42,21 @@ Acá se definieron arreglos para la señal de entrada y su respuesta o salida co
 
 # Realizar la convolución
 
+Se calcula la convolución entre h[n] y x[n] para cada estudiante.
+La convolución es una operación que representa cómo una señal se modifica al pasar por un sistema.
+
+
     ys = np.convolve(xs, hs, mode='full')
     yl = np.convolve(xl, hl, mode='full')
     ysh = np.convolve(xsh, hsh, mode='full')
 
-# Imprimir la señal resultante
+# Graficar la señal resultante
 
     print("Señal Samuel y[n]:", ys)
 
-# Graficar la señal resultante
+
+
+Se muestran los resultados de la convolución gráficamente usando plt.stem(), que es útil para representar señales discretas.
 
     plt.stem(ys)
     plt.title('Gráfico de la señal Samuel  y[n]')
@@ -73,6 +88,9 @@ Se realizo la convolución de cada sistema y se grafico su respectiva grafica de
 
 # Definir parámetros
 
+Se establece la frecuencia de muestreo (Fs) y el período de muestreo (Ts),
+definiendo el tiempo entre cada muestra.
+
      Fs = 1 / (1.25e-3)  # Frecuencia de muestreo inversa de Ts
      Ts = 1.25e-3  # Período de muestreo
      n = np.arange(0, 9)  # Valores de n
@@ -81,13 +99,21 @@ Se realizo la convolución de cada sistema y se grafico su respectiva grafica de
      x1 = np.cos(2 * np.pi * 100 * n * Ts)
      x2 = np.sin(2 * np.pi * 100 * n * Ts)
 
-Se definen las señales sin y cos para realizar la correlación entre estas.
+Se definen las señales sin y cos para realizar la correlación entre estas con frecuencia de 100 Hz..
 
 # Calcular la correlación
+
+Se calcula la correlación cruzada entre x1[n] y x2[n],
+lo que mide la similitud entre ambas señales en distintos desplazamientos (lags).
+
      correlacion = correlate(x1, x2, mode='full')
      lags = np.arange(-len(x1) + 1, len(x1))
 
 # Graficar señales originales
+
+Se representa gráficamente las señales originales x1[n] y x2[n]
+y luego su correlación cruzada en un segundo gráfico.
+
      plt.figure(figsize=(12, 5))
      plt.subplot(2, 1, 1)
      plt.stem(n, x1, linefmt='b-', markerfmt='bo', basefmt='r-')
@@ -98,7 +124,7 @@ Se definen las señales sin y cos para realizar la correlación entre estas.
      plt.legend(['x1[n]', 'x2[n]'])
      plt.grid()
 
-# Graficar la correlación
+## Graficar la correlación
 
      plt.subplot(2, 1, 2)
      plt.stem(lags, correlacion, linefmt='m-', markerfmt='mo', basefmt='r-')
@@ -112,6 +138,7 @@ Se definen las señales sin y cos para realizar la correlación entre estas.
 ![Image](https://github.com/user-attachments/assets/5328fe80-7576-413e-aafa-c3ee5b90dd0e)
 
 # Funciones para cargar datos
+
 
       def cargarDat(nombre):
     """Carga archivo .dat con la señal ECG"""
@@ -135,7 +162,7 @@ Se definen las señales sin y cos para realizar la correlación entre estas.
      ecg = cargarDat(dat)  
      fs, g, base = cargarHea(hea)
 
-El código define dos funciones para la carga de datos. cargarDat(nombre) abre un archivo .dat y extrae la señal ECG en formato binario, devolviendo un arreglo de valores enteros de 16 bits. cargarHea(nombre) lee el archivo .hea asociado, extrayendo información clave como la frecuencia de muestreo, la ganancia y la línea base de la señal.
+El código define dos funciones para la carga de datos. cargarDat(nombre) abre un archivo .dat y extrae la señal EMG en formato binario, devolviendo un arreglo de valores enteros de 16 bits. cargarHea(nombre) lee el archivo .hea asociado, extrayendo información clave como la frecuencia de muestreo, la ganancia y la línea base de la señal.
 
 # Convertir señal a mV y corregir línea base
      ecgMv = (ecg - base) / g
@@ -149,22 +176,25 @@ El código define dos funciones para la carga de datos. cargarDat(nombre) abre u
     }
       print("Estadísticos descriptivos:", descriptive_stats)
 
-Se normaliza la señal y se extraen estadísticas descriptivas.
+      
+Se corrige la señal restando la línea base y normalizándola con la ganancia.
+También se calculan estadísticas básicas de la señal.
 
 
-# Crear eje de tiempo completo
+
+### Crear eje de tiempo completo
      tiempo_total = len(ecg) / fs
     t = np.linspace(0, tiempo_total, len(ecg))
 
-# Parámetros del zoom
+### Parámetros del zoom
      tiempo_inicio = 0
      tiempo_fin = 0.1
 
-# Índices del rango de tiempo deseado
+### Índices del rango de tiempo deseado
     indice_inicio = int(tiempo_inicio * fs)
     indice_fin = int(tiempo_fin * fs)
 
-# Recortar la señal y el tiempo
+### Recortar la señal y el tiempo
      t_zoom = t[indice_inicio:indice_fin]
      senal_zoom = ecg[indice_inicio:indice_fin]
 
@@ -172,7 +202,7 @@ Se normaliza la señal y se extraen estadísticas descriptivas.
     f_zoom = np.fft.fft(senal_zoom)
     freq_zoom = np.fft.fftfreq(len(senal_zoom), d=1/fs)
 
-# FFT de la señal
+#### FFT de la señal
      ecgMv -= np.mean(ecgMv)
      N = len(ecgMv)
      fig, ax = plt.subplots(2, 1, figsize=(12, 6))
@@ -286,6 +316,9 @@ Coeficiente de Variación (CV)
 Distribución de la amplitud de la señal en diferentes valores y se superpone una distribución normal para comparación.
 
 # Función de Probabilidad Acumulada (CDF)
+
+La CDF (Función de Distribución Acumulativa) permite ver cómo se distribuyen las amplitudes de la señal.
+
     ecgOrd = np.sort(ecgMv)
     cdf = np.arange(len(ecgOrd)) / len(ecgOrd)
 
@@ -300,9 +333,12 @@ Distribución de la amplitud de la señal en diferentes valores y se superpone u
 
 ![Image](https://github.com/user-attachments/assets/b447419b-61ff-468c-98ab-b536d6b0d782)
 
-La CDF (Función de Distribución Acumulativa) permite ver cómo se distribuyen las amplitudes de la señal.
+
 
 # Mostrar resultados
+
+Se imprimen los estadísticos descriptivos de la señal EMG utilizada.
+
     print("* Estadísticos de EMG:")
     print(f"* Media manual: {media:.4f} mV")
     print(f"* Desviación estándar: {std:.4f} mV")
