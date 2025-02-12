@@ -1,8 +1,11 @@
 # LABORATORIO-2
 
 ***Luz Marina Valderrama-5600741***
+
 ***Shesly Nicole Colorado - 5600756***
+
 ***Samuel Esteban Fonseca Luna - 5600808***
+
 
 
     import numpy as np
@@ -165,7 +168,7 @@ Se normaliza la señal y se extraen estadísticas descriptivas.
      t_zoom = t[indice_inicio:indice_fin]
      senal_zoom = ecg[indice_inicio:indice_fin]
 
-#Zoom Fourier
+# Zoom Fourier
     f_zoom = np.fft.fft(senal_zoom)
     freq_zoom = np.fft.fftfreq(len(senal_zoom), d=1/fs)
 
@@ -187,32 +190,34 @@ Se normaliza la señal y se extraen estadísticas descriptivas.
      print(f"Frecuencia mediana: {freq_median:.2f} Hz")
      print(f"Desviación estándar de frecuencia: {std_freq:.2f} Hz")
 
-# Graficar la señal en el rango seleccionado
-     ax[0].plot(t_zoom, senal_zoom, color="blue", label="Señal EMG (Zoom)")
-     ax[0].set_title(f"Señal EMG en el tiempo (de {tiempo_inicio}s a {tiempo_fin}s)")
-     ax[0].set_xlabel("Tiempo (s)")
-     ax[0].set_ylabel("Amplitud (mV)")
-     ax[0].legend()
-     ax[0].grid()
-
+     
+# Graficar la señal en el tiempo con zoom
+    plt.subplot(2, 1, 1)
+    plt.plot(t_zoom, senal_zoom, color="blue", label="Señal EMG (Zoom)")
+    plt.title("Señal EMG en el tiempo")
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud (mV)")
+    plt.legend()
+    plt.grid()
 
 # Graficar la Transformada de Fourier (sólo frecuencias positivas)
-     ax[1].plot(freq_zoom[:len(freq_zoom)//2], abs(f_zoom[:len(f_zoom)//2])**2, color="red", label="FFT (Potencia)")
-     ax[1].set_title(f"Transformada de Fourier (Zoom: {tiempo_inicio}s - {tiempo_fin}s)")
-     ax[1].set_xlabel("Frecuencia (Hz)")
-     ax[1].set_ylabel("Potencia")
-     ax[1].legend()
-     ax[1].grid()
+    plt.subplot(2, 1, 2)
+    plt.plot(freq_zoom[:len(freq_zoom)//2], abs(f_zoom[:len(f_zoom)//2])**2, color="red", label="FFT (Potencia)")
+    plt.title("Transformada de Fourier de la señal EMG")
+    plt.xlabel("Frecuencia (Hz)")
+    plt.ylabel("Potencia")
+    plt.legend()
+    plt.grid()
 
-     plt.tight_layout()
-     plt.show()
+    plt.tight_layout()
+    plt.show()
 
-     reconstructed_signal = np.fft.ifft(fft_values)
-     plt.plot(t, ecgMv, label="Señal Original")
-     plt.plot(t, reconstructed_signal.real, label="Señal Reconstruida", linestyle="--")
-     plt.legend()
+    reconstructed_signal = np.fft.ifft(fft_values)
+    plt.plot(t, ecgMv, label="Señal Original")
+    plt.plot(t, reconstructed_signal.real, label="Señal Reconstruida", linestyle="--")
+    plt.legend()
 
-![Image](https://github.com/user-attachments/assets/33af4d77-1bac-42b9-9622-f145372bf752)
+#![Image](https://github.com/user-attachments/assets/33af4d77-1bac-42b9-9622-f145372bf752)
 
 # Graficar Densidad Espectral de Potencia
      frequencies, psd = welch(ecgMv, fs, nperseg=1024)
@@ -272,12 +277,11 @@ Coeficiente de Variación (CV)
     plt.plot(xVals, stats.norm.pdf(xVals, media, std), 'r-', label="Distribución Normal")
     plt.xlabel("Amp (mV)")
     plt.ylabel("Densidad")
-    plt.title("Histograma de ECG")
+    plt.title("Histograma de EMG")
     plt.legend()
     plt.grid()
     plt.show()
-
-![Image](https://github.com/user-attachments/assets/977ac973-0504-40f5-a1a9-13d2933218a3)
+![image](https://github.com/user-attachments/assets/8b14a892-2b1f-4ece-847f-6ebe22e895a3)
 
 Distribución de la amplitud de la señal en diferentes valores y se superpone una distribución normal para comparación.
 
