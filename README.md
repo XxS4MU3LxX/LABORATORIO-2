@@ -6,7 +6,8 @@
 
 ***Samuel Esteban Fonseca Luna - 5600808***
 
-
+El siguiente codigo tiene como objetivo interpretar los conceptos de concolucion, reconocer la correlación como una operación entre señales y la transformada como herramienta de análisis en el dominio de la
+frecuencia realizando diferentes ejercicios propuestos, como lo son la convolucion a mano y luego a traves de codigo utilizando como datos, la cedula y el codigo de estudiante, tambien se tomo una serie de datos extraidos de la base de datos physionet. Los datos utilizados pertenecen a un estudio de electromiografia correspondiente a (https://physionet.org/content/emgdb/1.0.0/); los archivos utilizados junto con el siguiente codigo explicado, estan en este repositorio.
 
     import numpy as np
     import matplotlib.pyplot as plt
@@ -343,3 +344,20 @@ Se imprimen los estadísticos descriptivos de la señal EMG utilizada.
     print(f"* Media manual: {media:.4f} mV")
     print(f"* Desviación estándar: {std:.4f} mV")
     print(f"* Coeficiente de Variación : {cv:.4f}")
+
+# Conclusiones
+
+
+Se implementaron técnicas fundamentales de procesamiento de señales, como la convolución, correlación y Transformada de Fourier, lo que permitió analizar el comportamiento de la señal EMG tanto en el dominio del tiempo como en el dominio de la frecuencia.
+
+
+La convolución entre las señales de entrada y los sistemas definidos con los códigos de los estudiantes permitió observar cómo se modifican las señales al pasar a través de un sistema. Esto es clave en el estudio de sistemas lineales en procesamiento digital de señales.
+
+
+Se calculó la correlación cruzada entre dos señales sinusoidales (cos y sin) de la misma frecuencia. Se demostró que la correlación refleja el desfase entre ambas señales, confirmando que cos y sin son ortogonales.
+
+
+Mediante la Transformada de Fourier se obtuvo el espectro de frecuencias de la señal EMG, lo que permitió analizar su composición en el dominio de la frecuencia. Se observó que la señal presenta componentes significativas en ciertas frecuencias, lo cual es útil para su clasificación y filtrado.
+
+
+El uso del método de Welch para calcular la Densidad Espectral de Potencia (PSD) facilitó la identificación de las frecuencias con mayor contribución de energía en la señal EMG. Esta información es crucial para aplicaciones biomédicas, como la detección de actividad muscular o el diagnóstico de enfermedades neuromusculares.
