@@ -360,4 +360,4 @@ Se calculó la correlación cruzada entre dos señales sinusoidales (cos y sin) 
 Mediante la Transformada de Fourier se obtuvo el espectro de frecuencias de la señal EMG, lo que permitió analizar su composición en el dominio de la frecuencia. Se observó que la señal presenta componentes significativas en ciertas frecuencias, lo cual es útil para su clasificación y filtrado.
 
 
-El uso del método de Welch para calcular la Densidad Espectral de Potencia (PSD) facilitó la identificación de las frecuencias con mayor contribución de energía en la señal EMG. Esta información es crucial para aplicaciones biomédicas, como la detección de actividad muscular o el diagnóstico de enfermedades neuromusculares.
+El uso del método de Welch para calcular la Densidad Espectral de Potencia (PSD) facilitó la identificación de las frecuencias con mayor contribución de energía en la señal EMG. Esta información es crucial para aplicaciones biomédicas, como la detección de actividad muscular o el diagnóstico de enfermedades neuromusculares...
