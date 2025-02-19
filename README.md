@@ -278,7 +278,7 @@ Para obtener una mejor representación de la señal en frecuencia, se utiliza el
 
 Muestra cómo se distribuyen las frecuencias en la señal y se usa bins=30para define itervalos en el histograma.
 
-# Graficar señal ECG
+# Graficar señal EMG
      plt.figure(figsize=(20, 7))
      plt.plot(t, ecgMv, label="EMG (mV)", color="black")
      plt.xlabel("Tiempo (s)")
